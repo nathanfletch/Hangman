@@ -8,6 +8,7 @@ namespace Hangman.Models
   public class Word
   {
     public string Letters {get; set;}
+    public string RevealedLetters {get; set;}
     public bool Survived {get;set;}
     public int Attempts {get;set;}
     public int Id {get;}
@@ -18,13 +19,14 @@ namespace Hangman.Models
     //cat - list of item 
 
     private static List<Word> _usedWords = new List<Word>();
-    private static List<string> _potentialWords = new List<string>(4){"hello","world","foo","bar"};
+    // private static List<string> _potentialWords = new List<string>(4){"hello","world","foo","bar"};
     //constructor - pull a word from the list
-    public Word()
+    public Word(string word)
     {
       _usedWords.Add(this);
       Id = _usedWords.Count;
-      Letters = _potentialWords[Id - 1];
+      Letters = word;
+      RevealedLetters = this.WordDisplay();
       Attempts = Letters.Length + 2;
       Survived = true;
     }
@@ -34,10 +36,10 @@ namespace Hangman.Models
       _usedWords.Clear();
     }
 
-    // public List<Guess> GetAll()
-    // {
-    //   return Guesses;
-    // }
+    public static List<Word> GetAll()
+    {
+      return _usedWords;
+    }
 
     public bool IsCorrectGuess(Guess currentGuess) //a method should only do one thing
     {
@@ -88,7 +90,10 @@ namespace Hangman.Models
     }
     // logic for repeat letters or not a problem?
 
-
+    public static Word Find(int searchId)
+    {
+      return _usedWords[searchId - 1];
+    }
     //find
 
     //get

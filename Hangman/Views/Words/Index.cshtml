@@ -1,0 +1,16 @@
+@using Hangman.Models;
+
+@if (Model["guesses"].Count == 0)
+{
+  <h2>You haven't tried to guess any letters yet!</h2>
+}
+<ol>
+  @foreach(Guess guess in Model["guesses"])
+  {
+    @* @if() *@
+    <li><a href='/words/@Model["words"].Id/guesses/@guess.Id'>@guess.Letter</a></li>
+  }
+</ol>
+
+<p><a href='/words/@Model["words"].Id/guesses/new'>Guess a letter</a></p>
+
