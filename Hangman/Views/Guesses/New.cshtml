@@ -1,5 +1,6 @@
-<form action="" method="post">
-  <label for="guess">guess here!</label>
-  <input id="guess" name="guess" type="text">
-  <button type="submit">guess!</button>
-  </form>
+<form action="/words/@Model.Id/guesses" method="post">
+  <input type="number" id="wordId" name="wordId" hidden value="@Model.Id">
+  <label for="guessInput">Enter one letter to make a guess:</label>
+  <input id="guessInput" name="guessInput" type="text">
+  <button type="submit">Guess!</button>
+</form>

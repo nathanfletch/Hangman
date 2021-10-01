@@ -1,6 +1,18 @@
 @using Hangman.Models;
 
-<h2>@Model.RevealedLetters</h2>
+<h2>@Model.WordDisplay()</h2>
 
+<ol>
+  @foreach(Guess guess in Model.Guesses)
+  {
+    <li>
+      <a href="/words/@Model.Id/guesses/@guess.Id">@guess.Letter </a>
+      @if(!guess.InWord)
+      {
+        <span>    x</span>
+      }
+      </li>
+  }
+</ol>
 
-<p><a href="/words/@Model.Id/guesses/">Start guessing!</a></p>
+<p><a href="/words/@Model.Id/guesses/new">Make a guess!</a></p>

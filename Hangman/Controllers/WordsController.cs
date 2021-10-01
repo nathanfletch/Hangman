@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Hangman.Models;
 using System.Collections.Generic;
+using System;
 
 namespace Hangman.Controllers
 {
@@ -26,6 +27,7 @@ namespace Hangman.Controllers
 
       return RedirectToAction("Index");
     }
+    //doubles up as "index" for all guesses stored in this word
     [HttpGet("/words/{id}")]
     public ActionResult Show(int id)
     {
@@ -33,6 +35,19 @@ namespace Hangman.Controllers
       Word selectedWord = Word.Find(id);
       return View(selectedWord);
     }
-    //like categories - showing all words - all games (results?) - create a word (get a word to start the game)
+
+    [HttpPost("/words/{id}/guesses/")]
+    public ActionResult Create(int wordId, string guessInput)
+    {
+      Console.WriteLine($"Word Id from a new guess form: {wordId}");
+      Word selectedWord = Word.Find(wordId);
+      Guess newGuess = new Guess(guessInput);
+      selectedWord.Guesses.Add(newGuess);
+      selectedWord.IsCorrectGuess(newGuess);
+      
+      return View("Show", selectedWord);
+      // new guess logic here
+      // creates new guess, determines guess success, adds guess to used-letters list(!new! put this in)
+    }
   }
 }

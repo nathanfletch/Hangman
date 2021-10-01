@@ -59,8 +59,6 @@ namespace Hangman.Models
     public string WordDisplay()
     {
       string gameWord = Letters;
-      // string[] letterArray = gameWord.Split("");
-      // Console.WriteLine($"Guesses: {letterArray}");
       string displayString = "";
 
       //look at each letter in the correct word 
@@ -68,10 +66,7 @@ namespace Hangman.Models
 
       for(int index = 0; index < gameWord.Length; index++)
       {
-        Console.WriteLine($"letter: {gameWord[index]}");
-        
         int startingLength = displayString.Length;
-        //easier to work with a string!
         for(int i = 0; i < Guesses.Count; i++)
         {
           if (Guesses[i].Letter == gameWord[index].ToString())
